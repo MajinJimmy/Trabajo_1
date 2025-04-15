@@ -1,0 +1,111 @@
+---
+title: "Conciencia de clase y percepciones de justicia social"
+author: "Violeta Rivera y Benjamín Sepúlveda"
+format: html
+editor: visual
+---
+
+```{r}
+# Carga Librerías --------------------------------------------------------------
+
+library(pacman)
+pacman::p_load(tidyverse,  
+               car,
+               stargazer,
+               sjlabelled,
+               sjPlot,      
+               confintr,    
+               gginference,  
+               rempsyc,     
+               broom,       
+               sjmisc,      
+               dplyr,
+               knitr)             
+
+options(scipen = 999) # para desactivar notacion cientifica
+rm(list = ls()) # para limpiar el entorno de trabajo
+
+
+# Carga datos ------------------------------------------------------------------
+
+load("input/ELSOC_Long.RData")
+
+```
+
+# Introducción
+
+En Chile, la desigualdad social ha sido históricamente una característica estructural del modelo económico y político. A pesar de los avances en acceso a educación, salud y participación ciudadana, amplios sectores de la población continúan percibiendo barreras de clase que limitan sus oportunidades y derechos.
+
+En este contexto, resulta relevante analizar cómo las personas entienden su posición dentro de la estructura social y cómo evalúan la justicia de la distribución de bienes como la educación y la salud. Este conjunto de percepciones configura lo que puede denominarse **conciencia de clase**, es decir, la forma en que los individuos comprenden su lugar en la sociedad, su relación con otros grupos sociales, y su postura frente a la desigualdad.
+
+Este trabajo busca analizar si existe una relación entre la **autoubicación social subjetiva** y las **percepciones de justicia distributiva**, considerando además variables como el nivel educacional, los ingresos, la edad, el sexo, la tendencia política y la satisfacción con la democracia. 
+
+# Relevancia
+
+La conciencia de clase es un concepto central en la sociología crítica, ya que permite comprender cómo las personas interpretan su posición dentro de la estructura social y cómo esto influye en sus actitudes frente a la desigualdad, la justicia social y el sistema político. En sociedades marcadas por altos niveles de desigualdad, como la chilena, el estudio de la conciencia de clase no solo permite identificar tensiones sociales latentes, sino también entender los niveles de legitimidad o deslegitimidad del orden social establecido.
+
+Particularmente en Chile, los eventos sociales recientes —como el estallido social de 2019— han evidenciado un profundo malestar ciudadano con las condiciones de vida, el acceso desigual a derechos básicos y la percepción de que el sistema favorece a ciertos grupos sobre otros. En ese contexto, investigar cómo las personas **perciben su clase social** y **evalúan la justicia del acceso a servicios fundamentales** como la educación y la salud resulta no solo pertinente, sino también urgente.
+
+Además, este análisis entrega pistas relevantes para comprender el tipo de ciudadanía que se está construyendo en el país: una más crítica, activa y consciente de sus derechos, o una más adaptada a un modelo meritocrático y desigual. Esto tiene implicancias tanto para el diseño de políticas públicas como para la comprensión del cambio cultural y político en curso.
+
+# Justificación y selección de las variables
+
+A continuación operacionalizaremos las siguientes varaible, la justificación de estas son ...
+
+las variables a seleccionar son
+
+```{r}
+## Filtrar y seleccionar -------------------------------------------------------
+data <- elsoc_long_2016_2022 %>% 
+  filter(ola==1) %>%
+  select(sexo=m0_sexo,edad=m0_edad,nedu=m01,
+         m14,c01,c15,d01_01,d02_02,d02_03)
+
+## Remover NA's ----------------------------------------------------------------
+data <- data %>% 
+  set_na(., na = c(-888, -999)) %>% 
+  na.omit()
+
+#Reetiquetado de variables
+
+data <- data %>% rename("nivel_educacional"=nedu,  #Nivel educacional.
+                        "ing_liqui_mens"=m14,      #Ingresos liquidos mensuales.
+                        "satis_demo"=c01,          #Satisfacción con el funcionamiento de la democracia.
+                        "tend_poli"=c15,           #Tendencia política.
+                        "autoubi_socie"=d01_01,    #Autoubicacion en la sociedad chilena.
+                        "just_acc_educ"=d02_02,    #Justicia en el acceso a educación según ingresos.
+                        "just_acc_salud"=d02_03)   #Justicia en el acceso a salud según ingresos.
+
+data$nivel_educacional <- set_label(x = data$nivel_educacional,label = "Nivel educacional")
+data$ing_liqui_mens <- set_label(x = data$ing_liqui_mens,label = "Ingresos liquidos mensuales")
+data$satis_demo <- set_label(x = data$satis_demo,label = "Satisfacción con el funcionamiento de la democracia")
+data$tend_poli <- set_label(x = data$tend_poli,label = "Tendencia política")
+data$autoubi_socie <- set_label(x = data$autoubi_socie,label = "Autoubicacion en la sociedad chilena")
+data$just_acc_educ <- set_label(x = data$just_acc_educ,label = "Justicia en el acceso a educación según ingresos")
+data$just_acc_salud <- set_label(x = data$just_acc_salud,label = "Justicia en el acceso a salud según ingresos")
+
+```
+
+# Visualización de resultados
+
+a continuación veremos la tabla descriptiva
+
+```{r}
+stargazer(data,type= "text")
+```
+
+ahora veremos la tablas mas bonita :)
+
+Ahora ahora veremos los siguientes graficos
+
+grafico 1
+
+```{r}
+
+```
+
+grafico 2
+
+# Interpretación de resultados 
+
+aca vverevemor por cuarta ex ahora haora la interpetscnlsdkvjasñcsa cdswkcjvdsdk

@@ -87,8 +87,6 @@ stargazer(data,type= "text")
 
 
 
-
-
 #LLLASFDKJASFASF
 
 frq(data$satis_demo)
