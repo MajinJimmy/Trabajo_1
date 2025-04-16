@@ -1,9 +1,32 @@
 ---
-title: "Conciencia de clase y percepciones de justicia social"
-author: "Violeta Rivera y Benjamín Sepúlveda"
-format: html
-editor: visual
+title: "Análisis Descriptivo de la Autopercepción Social y la Satisfacción Democrática en Chile (ELSOC 2016)"
+author: "Violeta Rivera y Benjamín Sepulveda "
+format:
+  html:
+    editor: visual
+    include-in-header:
+      text: |
+        <style>
+          body {
+            text-align: justify;
+            text-justify: inter-word;
+          }
+        </style>
 ---
+
+# Introducción
+
+En el contexto chileno actual, marcado por transformaciones políticas, desigualdades persistentes y un creciente distanciamiento entre ciudadanía e instituciones, se vuelve relevante comprender cómo las personas se perciben a sí mismas dentro del entramado social. Esta percepción subjetiva de la posición social puede incidir en diversas dimensiones de la vida, incluyendo las actitudes hacia la democracia y su evaluación.
+
+Desde la sociología, resulta clave estudiar estos fenómenos considerando no solo las estructuras objetivas (como ingreso o educación), sino también las representaciones que las personas construyen respecto a su lugar en la sociedad. El presente estudio busca explorar la relación entre la **autoubicación social subjetiva** y la **satisfacción con la democracia** en Chile.
+
+Entendemos por autoubicación social la forma en que los/as individuos/as se posicionan en una escala de estatus social percibido, medida del 1 (posición más baja) al 10 (más alta). Por su parte, la satisfacción con la democracia remite a la valoración que la ciudadanía hace del funcionamiento del régimen democrático, considerado un indicador clave de legitimidad política.
+
+La relevancia sociológica de este estudio radica en que diversas investigaciones han mostrado que la percepción subjetiva del estatus social influye en la forma en que las personas se relacionan con instituciones, política y bienestar general (Manstead, 2018; Kraus et al., 2012). En contextos de alta desigualdad como el chileno, esta percepción puede alejarse de indicadores objetivos, pero aún así tener efectos significativos sobre las actitudes cívicas.
+
+Nuestra hipótesis plantea que: **a medida que aumenta la autoubicación social subjetiva (es decir, las personas se sienten en una mejor posición), tiende a aumentar la satisfacción con la democracia**. Esta relación puede explicarse por una mayor sensación de integración y reconocimiento social entre quienes se perciben en una mejor posición.
+
+La fuente de datos utilizada es la Encuesta Longitudinal Social de Chile (ELSOC), Ola 1 del año 2016. Esta encuesta es representativa a nivel nacional y permite analizar actitudes y percepciones sociales de la población adulta en el país.
 
 ```{r}
 # Carga Librerías --------------------------------------------------------------
@@ -20,7 +43,8 @@ pacman::p_load(tidyverse,
                broom,       
                sjmisc,      
                dplyr,
-               knitr)             
+               knitr,
+               flextable)           
 
 options(scipen = 999) # para desactivar notacion cientifica
 rm(list = ls()) # para limpiar el entorno de trabajo
@@ -32,34 +56,20 @@ load("input/ELSOC_Long.RData")
 
 ```
 
-# Introducción
+# Selección de variables y justificación sociológica
 
-En Chile, la desigualdad social ha sido históricamente una característica estructural del modelo económico y político. A pesar de los avances en acceso a educación, salud y participación ciudadana, amplios sectores de la población continúan percibiendo barreras de clase que limitan sus oportunidades y derechos.
+**1. Autoubicación en la sociedad chilena (`autoubi_socie`)**\
+Esta variable recoge la percepción subjetiva de estatus social en una escala del 1 al 10. Su inclusión es central, ya que permite captar cómo las personas evalúan su lugar en la estructura social, considerando factores no siempre capturados por indicadores objetivos (como el capital cultural o simbólico). En estudios previos, esta percepción ha mostrado ser predictiva de bienestar, confianza y actitudes políticas (Operario et al., 2004; Kraus et al., 2012).
 
-En este contexto, resulta relevante analizar cómo las personas entienden su posición dentro de la estructura social y cómo evalúan la justicia de la distribución de bienes como la educación y la salud. Este conjunto de percepciones configura lo que puede denominarse **conciencia de clase**, es decir, la forma en que los individuos comprenden su lugar en la sociedad, su relación con otros grupos sociales, y su postura frente a la desigualdad.
-
-Este trabajo busca analizar si existe una relación entre la **autoubicación social subjetiva** y las **percepciones de justicia distributiva**, considerando además variables como el nivel educacional, los ingresos, la edad, el sexo, la tendencia política y la satisfacción con la democracia. 
-
-# Relevancia
-
-La conciencia de clase es un concepto central en la sociología crítica, ya que permite comprender cómo las personas interpretan su posición dentro de la estructura social y cómo esto influye en sus actitudes frente a la desigualdad, la justicia social y el sistema político. En sociedades marcadas por altos niveles de desigualdad, como la chilena, el estudio de la conciencia de clase no solo permite identificar tensiones sociales latentes, sino también entender los niveles de legitimidad o deslegitimidad del orden social establecido.
-
-Particularmente en Chile, los eventos sociales recientes —como el estallido social de 2019— han evidenciado un profundo malestar ciudadano con las condiciones de vida, el acceso desigual a derechos básicos y la percepción de que el sistema favorece a ciertos grupos sobre otros. En ese contexto, investigar cómo las personas **perciben su clase social** y **evalúan la justicia del acceso a servicios fundamentales** como la educación y la salud resulta no solo pertinente, sino también urgente.
-
-Además, este análisis entrega pistas relevantes para comprender el tipo de ciudadanía que se está construyendo en el país: una más crítica, activa y consciente de sus derechos, o una más adaptada a un modelo meritocrático y desigual. Esto tiene implicancias tanto para el diseño de políticas públicas como para la comprensión del cambio cultural y político en curso.
-
-# Justificación y selección de las variables
-
-A continuación operacionalizaremos las siguientes varaible, la justificación de estas son ...
-
-las variables a seleccionar son
+**2. Satisfacción con el funcionamiento de la democracia (`satis_demo`)**\
+Se trata de una variable ordinal que refleja la evaluación de las personas sobre la democracia chilena. Esta medida es clave para evaluar el vínculo entre ciudadanía e instituciones, especialmente en un país donde los niveles de confianza política han sido históricamente bajos. La sociología política ha demostrado que la percepción de justicia y representación se relaciona estrechamente con el nivel de satisfacción democrática (Norris, 2011).
 
 ```{r}
+
 ## Filtrar y seleccionar -------------------------------------------------------
 data <- elsoc_long_2016_2022 %>% 
   filter(ola==1) %>%
-  select(sexo=m0_sexo,edad=m0_edad,nedu=m01,
-         m14,c01,c15,d01_01,d02_02,d02_03)
+  select(d01_01,c01)
 
 ## Remover NA's ----------------------------------------------------------------
 data <- data %>% 
@@ -68,44 +78,74 @@ data <- data %>%
 
 #Reetiquetado de variables
 
-data <- data %>% rename("nivel_educacional"=nedu,  #Nivel educacional.
-                        "ing_liqui_mens"=m14,      #Ingresos liquidos mensuales.
-                        "satis_demo"=c01,          #Satisfacción con el funcionamiento de la democracia.
-                        "tend_poli"=c15,           #Tendencia política.
-                        "autoubi_socie"=d01_01,    #Autoubicacion en la sociedad chilena.
-                        "just_acc_educ"=d02_02,    #Justicia en el acceso a educación según ingresos.
-                        "just_acc_salud"=d02_03)   #Justicia en el acceso a salud según ingresos.
+data <- data %>% rename("satis_demo"=c01,          #Satisfacción con el funcionamiento de la democracia.
+                        "autoubi_socie"=d01_01) 
 
-data$nivel_educacional <- set_label(x = data$nivel_educacional,label = "Nivel educacional")
-data$ing_liqui_mens <- set_label(x = data$ing_liqui_mens,label = "Ingresos liquidos mensuales")
-data$satis_demo <- set_label(x = data$satis_demo,label = "Satisfacción con el funcionamiento de la democracia")
-data$tend_poli <- set_label(x = data$tend_poli,label = "Tendencia política")
-data$autoubi_socie <- set_label(x = data$autoubi_socie,label = "Autoubicacion en la sociedad chilena")
-data$just_acc_educ <- set_label(x = data$just_acc_educ,label = "Justicia en el acceso a educación según ingresos")
-data$just_acc_salud <- set_label(x = data$just_acc_salud,label = "Justicia en el acceso a salud según ingresos")
+data$satis_demo <- set_label(data$satis_demo, label = "Satisfacción con el funcionamiento de la democracia")
+data$autoubi_socie <- set_label(data$autoubi_socie, label = "Autoubicación en la sociedad chilena")
 
 ```
 
 # Visualización de resultados
 
-a continuación veremos la tabla descriptiva
+A continuación, se presenta una tabla descriptiva que resume las principales medidas estadísticas para las variables de interés en este estudio: autoubicación social subjetiva y satisfacción con la democracia.
 
 ```{r}
 stargazer(data,type= "text")
 ```
 
-ahora veremos la tablas mas bonita :)
+```         
+```
 
-Ahora ahora veremos los siguientes graficos
+```         
+```
 
-grafico 1
+# Gráficos
+
+Teniendo nuestra tabla descriptiva como punto de partida, realizaremos a continuación una serie de gráficos que nos permitirán visualizar la distribución de las variables de interés. Estas representaciones gráficas facilitarán la comprensión de los patrones presentes en los datos y apoyarán la interpretación de los resultados obtenidos.
+
+**Gráfico 1: Distribución de la autoubicación social subjetiva**
+
+A continuación, se muestra un gráfico que representa la distribución de la variable *autoubicación social subjetiva*. Este gráfico permite observar cómo se concentran las respuestas a lo largo de la escala de 0 a 10, identificando posibles asimetrías, acumulaciones o extremos en la percepción del estatus social.
 
 ```{r}
+ggplot(data, aes(x = autoubi_socie)) +
+  geom_bar(fill = "#F4A7B9") +  # rosado pastel
+  labs(
+    title = "Autoubicación en la sociedad chilena",
+    x = "Ubicación social (1 = más bajo, 10 = más alto)",
+    y = "Frecuencia"
+  ) +
+  theme_minimal(base_family = "sans") +
+  theme(plot.title = element_text(face = "bold"))
+
+
 
 ```
 
-grafico 2
+Grafico 2
 
-# Interpretación de resultados 
+El siguiente gráfico muestra la distribución de la variable *satisfacción con la democracia*. Dado que esta se mide en una escala de 1 a 5, el gráfico facilita identificar tendencias generales en la valoración que hace la ciudadanía del funcionamiento democrático en Chile.
 
-aca vverevemor por cuarta ex ahora haora la interpetscnlsdkvjasñcsa cdswkcjvdsdk
+```{r}
+ggplot(data, aes(x = satis_demo)) +
+  geom_bar(fill = "#CBAACB") +  # lila pastel
+  labs(
+    title = "Satisfacción con la democracia",
+    x = "Nivel de satisfacción",
+    y = "Frecuencia"
+  ) +
+  theme_minimal(base_family = "sans") +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1),
+        plot.title = element_text(face = "bold"))
+
+
+```
+
+# Interpretación de resultados
+
+Los resultados descriptivos muestran que la autoubicación social subjetiva presenta un promedio de **4.35** en una escala de 0 a 10, con una desviación estándar de **1.56**. Esto sugiere que, en promedio, las personas se perciben en una posición intermedia-baja dentro de la escala social, con cierta dispersión en las respuestas. El mínimo reportado fue **0** y el máximo **10**, lo que indica que se utilizaron todos los niveles posibles de la escala.
+
+Por otro lado, la satisfacción con la democracia tiene un promedio de **1.99** en una escala de 1 a 5, con una desviación estándar de **1.08**. Este resultado indica un nivel de satisfacción relativamente bajo entre las personas encuestadas, con una dispersión moderada. Aunque el valor máximo observado fue **5**, el promedio cercano a **2** sugiere una tendencia general hacia la insatisfacción con el funcionamiento de la democracia en Chile al momento de la medición.
+
+En conjunto, los datos muestran que tanto la percepción del estatus social como la satisfacción con la democracia tienden a ubicarse en niveles bajos, lo que podría estar reflejando tensiones sociales importantes y una desconexión entre ciudadanía e instituciones. Estos resultados dan pie a profundizar en el análisis de la relación entre ambas variables.
