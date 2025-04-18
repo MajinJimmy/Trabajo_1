@@ -4,6 +4,8 @@ author: "Violeta Rivera y Benjamín Sepulveda "
 format:
   html:
     editor: visual
+    bibliography: Referencias-optativo-R.bib
+    link-citations: true
     include-in-header:
       text: |
         <style>
@@ -22,7 +24,7 @@ Desde la sociología, resulta clave estudiar estos fenómenos considerando no so
 
 Entendemos por autoubicación social la forma en que los/as individuos/as se posicionan en una escala de estatus social percibido, medida del 1 (posición más baja) al 10 (más alta). Por su parte, la satisfacción con la democracia remite a la valoración que la ciudadanía hace del funcionamiento del régimen democrático, considerado un indicador clave de legitimidad política.
 
-La relevancia sociológica de este estudio radica en que diversas investigaciones han mostrado que la percepción subjetiva del estatus social influye en la forma en que las personas se relacionan con instituciones, política y bienestar general (Manstead, 2018; Kraus et al., 2012). En contextos de alta desigualdad como el chileno, esta percepción puede alejarse de indicadores objetivos, pero aún así tener efectos significativos sobre las actitudes cívicas.
+La relevancia sociológica de este estudio radica en que diversas investigaciones han mostrado que la percepción subjetiva del estatus social influye en la forma en que las personas se relacionan con instituciones, política y bienestar general [@mansteadPsychologySocialClass2018; @krausSocialClassSense2009]. En contextos de alta desigualdad como el chileno, esta percepción puede alejarse de indicadores objetivos, pero aún así tener efectos significativos sobre las actitudes cívicas.
 
 Nuestra hipótesis plantea que: **a medida que aumenta la autoubicación social subjetiva (es decir, las personas se sienten en una mejor posición), tiende a aumentar la satisfacción con la democracia**. Esta relación puede explicarse por una mayor sensación de integración y reconocimiento social entre quienes se perciben en una mejor posición.
 
@@ -59,10 +61,10 @@ load("input/ELSOC_Long.RData")
 # Selección de variables y justificación sociológica
 
 **1. Autoubicación en la sociedad chilena (`autoubi_socie`)**\
-Esta variable recoge la percepción subjetiva de estatus social en una escala del 1 al 10. Su inclusión es central, ya que permite captar cómo las personas evalúan su lugar en la estructura social, considerando factores no siempre capturados por indicadores objetivos (como el capital cultural o simbólico). En estudios previos, esta percepción ha mostrado ser predictiva de bienestar, confianza y actitudes políticas (Operario et al., 2004; Kraus et al., 2012).
+Esta variable recoge la percepción subjetiva de estatus social en una escala del 1 al 10. Su inclusión es central, ya que permite captar cómo las personas evalúan su lugar en la estructura social, considerando factores no siempre capturados por indicadores objetivos (como el capital cultural o simbólico). En estudios previos, esta percepción ha mostrado ser predictiva de bienestar, confianza y actitudes políticas [@operarioSubjectiveSocialStatus2004; @krausSocialClassSense2009].
 
 **2. Satisfacción con el funcionamiento de la democracia (`satis_demo`)**\
-Se trata de una variable ordinal que refleja la evaluación de las personas sobre la democracia chilena. Esta medida es clave para evaluar el vínculo entre ciudadanía e instituciones, especialmente en un país donde los niveles de confianza política han sido históricamente bajos. La sociología política ha demostrado que la percepción de justicia y representación se relaciona estrechamente con el nivel de satisfacción democrática (Norris, 2011).
+Se trata de una variable ordinal que refleja la evaluación de las personas sobre la democracia chilena. Esta medida es clave para evaluar el vínculo entre ciudadanía e instituciones, especialmente en un país donde los niveles de confianza política han sido históricamente bajos. La sociología política ha demostrado que la percepción de justicia y representación se relaciona estrechamente con el nivel de satisfacción democrática [@norrisDemocraticDeficitCritical2011].
 
 ```{r}
 
